@@ -1,5 +1,6 @@
 import 'package:base_project/application/pages/home/home_page.dart';
 import 'package:base_project/application/pages/login/login_page.dart';
+import 'package:base_project/data/models/response/auth_response.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -20,13 +21,17 @@ class Routes {
         );
       case Routes.kHomePage:
         return PageTransition(
-          child: const HomePage(),
+          child: HomePage(
+            authResponse: settings.arguments as AuthResponse,
+          ),
           type: PageTransitionType.fade,
           settings: const RouteSettings(name: Routes.kHomePage),
         );
       case Routes.kProfilePage:
         return PageTransition(
-          child: const ProfilePage(),
+          child: ProfilePage(
+            authResponse: settings.arguments as AuthResponse,
+          ),
           type: PageTransitionType.fade,
           settings: const RouteSettings(name: Routes.kHomePage),
         );
