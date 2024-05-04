@@ -6,7 +6,8 @@ import '../core/utils/app_colors.dart';
 class AppButton extends StatefulWidget {
   final String labelText;
   final bool? shadow;
-  const AppButton({super.key, required this.labelText, this.shadow = false});
+  final Color? color;
+  const AppButton({super.key, required this.labelText, this.shadow = false, this.color = AppColors.teal});
 
   @override
   State<AppButton> createState() => _AppButtonState();
@@ -19,8 +20,8 @@ class _AppButtonState extends State<AppButton> {
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 1.5.h),
       decoration: BoxDecoration(
-        color: AppColors.teal,
-        borderRadius: const BorderRadius.all(Radius.circular(3)),
+        color: widget.color,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
         boxShadow: widget.shadow! ? [
           BoxShadow(
             color: AppColors.black.withOpacity(0.2),

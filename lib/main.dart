@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute: Routes.kLoginPage,
+        initialRoute: Routes.kHomePage,
         onGenerateRoute: Routes.generateRoute,
         supportedLocales: const [
           Locale(kLocaleEN, "US"),
