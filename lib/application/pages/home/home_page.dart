@@ -54,9 +54,9 @@ class _HomePageState extends BasePageState<HomePage> {
                     physics: const BouncingScrollPhysics(),
                     itemCount: 100,
                     itemBuilder: (context, index) => ProductTile(
-                      title: "XX",
+                      title: "Item Number $index",
                       img: "",
-                      price: "",
+                      price: "\$29.99",
                     ),
                   ),
                 )

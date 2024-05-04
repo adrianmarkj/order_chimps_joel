@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../error/messages.dart';
+import '../../common/app_dialog.dart';
 import '../../core/utils/app_colors.dart';
 import 'bloc/base_bloc.dart';
 import 'bloc/base_state.dart';
@@ -25,6 +27,52 @@ abstract class BasePageState<Page extends BasePage> extends State<Page> {
   Widget buildView(BuildContext context);
 
   Base? getBloc();
+
+  void showAppDialog(
+      {required String title,
+        String? message,
+        Color? messageColor,
+        String? subDescription,
+        Color? subDescriptionColor,
+        String? positiveButtonText,
+        String? negativeButtonText,
+        VoidCallback? onPositiveCallback,
+        VoidCallback? onNegativeCallback,
+        Widget? dialogContentWidget,
+        bool shouldDismiss = false,
+        bool? shouldEnableClose,
+        bool isSessionTimeout = false,
+        bool? expandPos = false}) {
+    showGeneralDialog(
+        context: context,
+        barrierDismissible: shouldDismiss,
+        transitionBuilder: (context, a1, a2, widget) {
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+              opacity: a1.value,
+              child: AppDialog(
+                title: title,
+                description: message,
+                descriptionColor: messageColor,
+                subDescription: subDescription,
+                subDescriptionColor: subDescriptionColor,
+                positiveButtonText: positiveButtonText,
+                negativeButtonText: negativeButtonText,
+                onNegativeCallback: onNegativeCallback,
+                onPositiveCallback: onPositiveCallback,
+                dialogContentWidget: dialogContentWidget,
+                isSessionTimeout: isSessionTimeout,
+                expandPos: expandPos,
+              ),
+            ),
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 250),
+        pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+          return const SizedBox.shrink();
+        });
+  }
 
   void showProgress() {
     if (!_isProgressShow) {
@@ -94,9 +142,13 @@ abstract class BasePageState<Page extends BasePage> extends State<Page> {
           if (state is APILoadingState) {
             showProgress();
           } else if (state is SessionExpireState) {
+            hideProgressBar();
+            showAppDialog(title: ErrorHandler.TITLE_OOPS, message: state.error, onPositiveCallback: () {});
           } else {
             hideProgressBar();
-            if (state is APIFailureState) {}
+            if (state is APIFailureState) {
+              showAppDialog(title: ErrorHandler.TITLE_OOPS, message: state.error, onPositiveCallback: () {});
+            }
           }
         },
         child: buildView(context),

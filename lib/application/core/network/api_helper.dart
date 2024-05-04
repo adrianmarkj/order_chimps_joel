@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
-import '../../../data/models/common/base_response.dart';
 import '../../../data/models/common/common_error_response.dart';
 import '../../../error/exceptions.dart';
 import '../../../error/messages.dart';

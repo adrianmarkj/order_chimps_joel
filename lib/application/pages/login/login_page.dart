@@ -22,29 +22,32 @@ class LoginPage extends BasePage {
 
 class _LoginPageState extends BasePageState<LoginPage> {
   final LoginBloc bloc = sl<LoginBloc>();
-  
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    bloc.add(Authenticate(username: "qaapp2@yopmail.com", password: "12345678"));
   }
 
   @override
   Widget buildView(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
+      resizeToAvoidBottomInset: false,
       body: BlocProvider<LoginBloc>(
         create: (_) => bloc,
         child: BlocListener<LoginBloc, BaseState<LoginState>>(
           listener: (_, state) {
-            if (state is AuthSuccessState){
+            if (state is AuthSuccessState) {
               print("Success");
-            } else if (state is AuthFailState){
+            } else if (state is AuthFailState) {
               print("Fail");
             }
           },
           child: Padding(
-            padding: EdgeInsets.only(top: 10.h, left: 5.w, right: 5.w, bottom: 3.h),
+            padding:
+                EdgeInsets.only(top: 10.h, left: 5.w, right: 5.w, bottom: 3.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -76,39 +79,47 @@ class _LoginPageState extends BasePageState<LoginPage> {
                 SizedBox(
                   height: 6.h,
                 ),
-                const AppTextField(
+                AppTextField(
                   hint: "username",
                   labelText: "Username/Email",
+                  controller: usernameController,
                 ),
                 SizedBox(
                   height: 3.h,
                 ),
-                const AppTextField(
+                AppTextField(
                   hint: "password",
                   labelText: "Password",
                   obscureText: true,
+                  controller: passwordController,
                 ),
                 SizedBox(
                   height: 5.h,
                 ),
-                const AppButton(
+                AppButton(
                   labelText: "LOGIN",
                   shadow: true,
+                  onTap: (){
+                    if(validate()){
+                      bloc.add(Authenticate(
+                          username: usernameController.text, password: passwordController.text));
+                    }
+                  },
                 ),
                 const Spacer(),
                 Center(
                   child: Text.rich(
                     TextSpan(
-                        text: "Don't have an account?",
-                        style: AppStyling.normal400TextSize12
-                            .copyWith(color: AppColors.black.withOpacity(0.5)),
+                      text: "Don't have an account?",
+                      style: AppStyling.normal400TextSize12
+                          .copyWith(color: AppColors.black.withOpacity(0.5)),
                       children: [
                         TextSpan(
                             text: " Sign up",
                             style: AppStyling.normal400TextSize12
                                 .copyWith(color: AppColors.teal)),
                         const TextSpan(
-                            text: ".",
+                          text: ".",
                         ),
                       ],
                     ),
@@ -120,6 +131,18 @@ class _LoginPageState extends BasePageState<LoginPage> {
         ),
       ),
     );
+  }
+
+  bool validate() {
+    if (usernameController.text.isEmpty) {
+      return false;
+    }
+
+    if (passwordController.text.isEmpty) {
+      return false;
+    }
+
+    return true;
   }
 
   @override

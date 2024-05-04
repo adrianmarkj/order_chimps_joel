@@ -47,7 +47,7 @@ class _ProfilePageState extends BasePageState<ProfilePage> {
                                    ),
                  ),
                 const Spacer(),
-                const AppButton(labelText: "Logout", color: AppColors.fail,)
+                AppButton(labelText: "Logout", color: AppColors.fail, onTap: (){},)
               ],
             ),
           ),
