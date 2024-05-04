@@ -16,8 +16,8 @@ class ErrorResponseModel extends ErrorResponse {
   String toRawJson() => json.encode(toJson());
 
   factory ErrorResponseModel.fromJson(Map<String, dynamic> json) => ErrorResponseModel(
-    responseCode: json["response_code"],
-    responseError: json["response_error"],
+    responseCode: json["response_code"] ?? "",
+    responseError: json["response_error"] ?? "Oops! Something Went Wrong",
   );
 
   Map<String, dynamic> toJson() => {

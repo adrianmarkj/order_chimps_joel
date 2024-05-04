@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../injection.dart';
+import '../../core/routes.dart';
 import '../../core/utils/app_colors.dart';
 import '../base/base_page.dart';
 import '../base/bloc/base_bloc.dart';
@@ -40,7 +41,7 @@ class _LoginPageState extends BasePageState<LoginPage> {
         child: BlocListener<LoginBloc, BaseState<LoginState>>(
           listener: (_, state) {
             if (state is AuthSuccessState) {
-              print("Success");
+              Navigator.pushReplacementNamed(context, Routes.kHomePage);
             } else if (state is AuthFailState) {
               print("Fail");
             }
