@@ -125,7 +125,6 @@ class _AppTextFieldState extends State<AppTextField> {
           },
           focusNode: widget.focusNode,
           autofocus: false,
-          showCursor: false,
           controller: controller,
           obscureText: widget.obscureText!,
           obscuringCharacter: '●',
@@ -145,7 +144,7 @@ class _AppTextFieldState extends State<AppTextField> {
           style: TextStyle(
             fontSize: widget.fontSize ?? (widget.obscureText! ? 20 : 14),
             fontWeight: FontWeight.bold,
-            letterSpacing: widget.obscureText! ? 18.0 : 0.0,
+            letterSpacing: widget.obscureText! ? 0.0 : 0.0,
           ),
           keyboardType: widget.inputType ?? TextInputType.text,
           decoration: InputDecoration(

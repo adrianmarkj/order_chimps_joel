@@ -9,7 +9,11 @@ class SessionExpireState<K> extends BaseState<K> {
   SessionExpireState({required this.error});
 }
 
-class APIFailureState<K> extends BaseState<K> {}
+class APIFailureState<K> extends BaseState<K> {
+  final String error;
+
+  APIFailureState({required this.error});
+}
 
 class APILoadingState<K> extends BaseState<K> {}
 

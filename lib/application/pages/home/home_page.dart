@@ -52,11 +52,9 @@ class _HomePageState extends BasePageState<HomePage> {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 100,
                     itemBuilder: (context, index) => ProductTile(
-                      title: "XX",
-                      img: "",
-                      price: "",
+                      title: "Item Number ${index+1}",
+                      price: "\$29.99",
                     ),
                   ),
                 )

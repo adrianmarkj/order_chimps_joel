@@ -48,9 +48,7 @@ class PrintResponse extends DebugPrint {
 }
 
 class PrintAction extends DebugPrint {
-  @override
   String? type;
-  @override
   Object object;
 
   PrintAction(this.object, {this.type}) : super(object, Logger.blue, type: type);
