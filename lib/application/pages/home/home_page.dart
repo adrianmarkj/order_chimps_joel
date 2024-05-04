@@ -7,6 +7,8 @@ import 'package:base_project/application/pages/home/widgets/product_tile.dart';
 import 'package:base_project/data/models/response/auth_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../injection.dart';
@@ -29,7 +31,25 @@ class _HomePageState extends BasePageState<HomePage> {
   @override
   void initState() {
     super.initState();
-    AppPermissionManager.requestLocationPermission(context, () {});
+    AppPermissionManager.requestLocationPermission(context, () {
+      getLocation();
+    });
+  }
+
+  void getLocation() async {
+    final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best)
+        .timeout(const Duration(seconds: 5));
+
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+      print(placemarks[0]);
+    }catch(err){
+      print(err);
+    }
   }
 
   @override
