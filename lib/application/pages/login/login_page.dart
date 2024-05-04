@@ -22,6 +22,12 @@ class LoginPage extends BasePage {
 
 class _LoginPageState extends BasePageState<LoginPage> {
   final LoginBloc bloc = sl<LoginBloc>();
+  
+  @override
+  void initState(){
+    super.initState();
+    bloc.add(Authenticate(username: "qaapp2@yopmail.com", password: "12345678"));
+  }
 
   @override
   Widget buildView(BuildContext context) {
@@ -30,7 +36,11 @@ class _LoginPageState extends BasePageState<LoginPage> {
       body: BlocProvider<LoginBloc>(
         create: (_) => bloc,
         child: BlocListener<LoginBloc, BaseState<LoginState>>(
-          listener: (_, state) {},
+          listener: (_, state) {
+            if (state is AuthSuccessState){
+              print("Success");
+            }
+          },
           child: Padding(
             padding: EdgeInsets.only(top: 10.h, left: 5.w, right: 5.w, bottom: 3.h),
             child: Column(

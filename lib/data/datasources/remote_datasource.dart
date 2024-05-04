@@ -18,7 +18,7 @@ class RemoteDataSourceImpl implements RemoteDatasource {
 
   Future<PacketHeader> _generateHeader() async {
     PacketHeader header = PacketHeader();
-    header.tZ = DateTime.now().timeZoneName;
+    header.tZ = "Europe/London";
     return header;
   }
 
@@ -33,7 +33,7 @@ class RemoteDataSourceImpl implements RemoteDatasource {
       request.body = authRequest;
       final response = await apiHelper.post(
         "https://api.in2dfuture.com/api/v2/auth/login",
-        body: request.toJson(),
+        body: request.body?.toJson(),
       );
       return APIResponse<AuthResponse>.fromJson(
         response,

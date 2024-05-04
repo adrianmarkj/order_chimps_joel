@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
-import '../../../data/models/common/base_request.dart';
 import '../../../data/models/common/base_response.dart';
 import '../../../data/models/common/common_error_response.dart';
 import '../../../error/exceptions.dart';
@@ -23,7 +22,7 @@ class APIHelper {
       requestBody: false,
       responseBody: false,
       error: false,
-      requestHeader: false,
+      requestHeader: true,
       responseHeader: false,
     );
 
@@ -35,7 +34,9 @@ class APIHelper {
 
     dio
       ..options = options
-      ..interceptors.add(logInterceptor);
+      ..interceptors.add(logInterceptor)
+      ..options.headers["Tz"] = "Europe/London"
+    ;
 
     dio.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
@@ -55,11 +56,11 @@ class APIHelper {
     try {
       final payload = jsonEncode(body);
       final response = await dio.post(url,
-        data: BaseRequest(data: payload).toJson(),
+        data: payload,
       );
 
       final baseResponse = BaseResponse.fromJson(response.data);
-      final responseMap = jsonDecode(baseResponse.data!);
+      final responseMap = jsonDecode(response.data.toString());
       PrintResponse('$responseMap', type: "API RESPONSE");
 
       return responseMap;
