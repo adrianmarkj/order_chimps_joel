@@ -1,6 +1,6 @@
 # base_project
 
-Mobile Base Project
+Order Chimps Assessment Project
 
 ## Getting Started
 
