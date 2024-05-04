@@ -1,6 +1,7 @@
 import 'package:base_project/application/common/app_button.dart';
 import 'package:base_project/application/common/app_text_field.dart';
 import 'package:base_project/application/core/utils/app_styling.dart';
+import 'package:base_project/application/core/utils/app_validator.dart';
 import 'package:base_project/application/pages/login/bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,7 +131,7 @@ class _LoginPageState extends BasePageState<LoginPage> {
   }
 
   bool validate() {
-    if (usernameController.text.isEmpty) {
+    if (usernameController.text.isEmpty || !Validator.validateEmail(usernameController.text)) {
       showAppDialog(title: ErrorHandler.TITLE_OOPS, message: 'Username/Email cannot be empty');
       return false;
     }
