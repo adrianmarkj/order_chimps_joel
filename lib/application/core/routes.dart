@@ -1,4 +1,5 @@
 import 'package:base_project/application/core/utils/app_constants.dart';
+import 'package:base_project/application/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,15 +10,15 @@ GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final routes = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: AppConstants.routeSplash,
+  initialLocation: AppConstants.routeLogin,
   observers: [GoRouterObserver()],
   routes: [
-    // GoRoute(
-    //     path: AppConstants.routeSplash,
-    //     name: "Splash",
-    //     builder: (context, state) {
-    //       return const SplashPageWrapperProvider();
-    //     }),
+    GoRoute(
+        path: AppConstants.routeLogin,
+        name: "Login",
+        builder: (context, state) {
+          return const LoginPage();
+        }),
     // GoRoute(
     //     path: AppConstants.routeWebPage,
     //     name: "Web View",

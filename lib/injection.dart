@@ -1,3 +1,4 @@
+import 'package:base_project/application/pages/login/bloc/login_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +18,7 @@ final sl = GetIt.I; //sl = service locator
 Future<void> init() async {
   /// Application Layer ///
   /// Factory = every time new instance of that class
-  // sl.registerFactory(() => SplashCubit(splashUseCases: sl()));
+  sl.registerFactory(() => LoginBloc());
 
   /// Domain Layer ///
   // sl.registerFactory(() => SplashUseCases(

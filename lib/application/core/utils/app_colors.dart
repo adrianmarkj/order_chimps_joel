@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Colors
   static const primaryBlue = Color(0xFF041B4D);
-  static const white = Color(0xFFFFFFFF);
+  static const white = Colors.white;
+  static const teal = Color(0xFF01F9C6);
+  static const black = Colors.black;
+  static const success = Colors.green;
+  static const fail = Colors.red;
 
   // Gradients
   static const LinearGradient primaryGradient =

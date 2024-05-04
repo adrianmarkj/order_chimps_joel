@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../core/utils/app_colors.dart';
-import 'cubit/base_bloc.dart';
-import 'cubit/base_state.dart';
+import 'bloc/base_bloc.dart';
+import 'bloc/base_state.dart';
 
 abstract class BasePage extends StatefulWidget {
   const BasePage({Key? key}) : super(key: key);
