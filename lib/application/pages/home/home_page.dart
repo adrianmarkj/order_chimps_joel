@@ -1,4 +1,5 @@
 import 'package:base_project/application/common/custom_bottom_nav.dart';
+import 'package:base_project/application/core/services/permission_manager.dart';
 import 'package:base_project/application/core/utils/app_styling.dart';
 import 'package:base_project/application/pages/base/base_page.dart';
 import 'package:base_project/application/pages/home/bloc/home_bloc.dart';
@@ -24,6 +25,12 @@ class _HomePageState extends BasePageState<HomePage> {
   final HomeBloc bloc = sl<HomeBloc>();
 
   @override
+  void initState() {
+    super.initState();
+    AppPermissionManager.requestLocationPermission(context, () {});
+  }
+
+  @override
   Widget buildView(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "Home"),
@@ -33,11 +40,9 @@ class _HomePageState extends BasePageState<HomePage> {
       body: BlocProvider<HomeBloc>(
         create: (_) => bloc,
         child: BlocListener<HomeBloc, BaseState<HomeState>>(
-          listener: (context, state) {
-          },
+          listener: (context, state) {},
           child: Padding(
-            padding:
-                EdgeInsets.only(top:3.h, left: 5.w, right: 5.w),
+            padding: EdgeInsets.only(top: 3.h, left: 5.w, right: 5.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
