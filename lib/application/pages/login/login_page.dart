@@ -74,6 +74,7 @@ class _LoginPageState extends BasePageState<LoginPage> {
                 const AppTextField(
                   hint: "password",
                   labelText: "Password",
+                  obscureText: true,
                 ),
                 SizedBox(
                   height: 5.h,
