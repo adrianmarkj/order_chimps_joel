@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../data/models/response/auth_response.dart';
 import '../../../injection.dart';
 import '../../common/custom_app_bar.dart';
+import '../../core/routes.dart';
 import '../base/bloc/base_bloc.dart';
 import '../base/bloc/base_event.dart';
 import '../base/bloc/base_state.dart';
 import 'bloc/profile_bloc.dart';
 
 class ProfilePage extends BasePage {
-  const ProfilePage({super.key});
+  final AuthResponse authResponse;
+  const ProfilePage({super.key, required this.authResponse});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -27,8 +30,9 @@ class _ProfilePageState extends BasePageState<ProfilePage> {
   Widget buildView(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "Profile"),
-      bottomNavigationBar: const CustomBottomNav(
+      bottomNavigationBar: CustomBottomNav(
         currentIndex: 1,
+        authResponse: widget.authResponse,
       ),
       body: BlocProvider<ProfileBloc>(
         create: (_) => bloc,
@@ -47,7 +51,9 @@ class _ProfilePageState extends BasePageState<ProfilePage> {
                                    ),
                  ),
                 const Spacer(),
-                AppButton(labelText: "Logout", color: AppColors.fail, onTap: (){},)
+                AppButton(labelText: "Logout", color: AppColors.fail, onTap: (){
+                  Navigator.pushReplacementNamed(context, Routes.kLoginPage);
+                },)
               ],
             ),
           ),

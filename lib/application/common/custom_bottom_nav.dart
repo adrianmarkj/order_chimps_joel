@@ -1,4 +1,5 @@
 import 'package:base_project/application/core/utils/app_colors.dart';
+import 'package:base_project/data/models/response/auth_response.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -6,8 +7,9 @@ import '../core/routes.dart';
 
 class CustomBottomNav extends StatefulWidget {
   final int currentIndex;
+  final AuthResponse authResponse;
 
-  const CustomBottomNav({super.key, required this.currentIndex});
+  const CustomBottomNav({super.key, required this.currentIndex, required this.authResponse});
 
   @override
   State<CustomBottomNav> createState() => _CustomBottomNavState();
@@ -43,7 +45,7 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
             onTap: () {
               setState(() {
                 widget.currentIndex != 1
-                    ? Navigator.pushReplacementNamed(context, Routes.kProfilePage)
+                    ? Navigator.pushReplacementNamed(context, Routes.kProfilePage, arguments: widget.authResponse)
                     : null;
               });
             },

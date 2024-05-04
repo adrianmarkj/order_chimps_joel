@@ -4,6 +4,7 @@ import 'package:base_project/application/core/utils/app_styling.dart';
 import 'package:base_project/application/pages/base/base_page.dart';
 import 'package:base_project/application/pages/home/bloc/home_bloc.dart';
 import 'package:base_project/application/pages/home/widgets/product_tile.dart';
+import 'package:base_project/data/models/response/auth_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -15,7 +16,8 @@ import '../base/bloc/base_event.dart';
 import '../base/bloc/base_state.dart';
 
 class HomePage extends BasePage {
-  const HomePage({super.key});
+  final AuthResponse authResponse;
+  const HomePage({super.key, required this.authResponse});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -34,8 +36,9 @@ class _HomePageState extends BasePageState<HomePage> {
   Widget buildView(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "Home"),
-      bottomNavigationBar: const CustomBottomNav(
+      bottomNavigationBar: CustomBottomNav(
         currentIndex: 0,
+        authResponse: widget.authResponse,
       ),
       body: BlocProvider<HomeBloc>(
         create: (_) => bloc,

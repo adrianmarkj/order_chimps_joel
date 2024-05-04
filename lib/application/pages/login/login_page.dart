@@ -25,12 +25,7 @@ class _LoginPageState extends BasePageState<LoginPage> {
   final LoginBloc bloc = sl<LoginBloc>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  
   @override
   Widget buildView(BuildContext context) {
     return Scaffold(
@@ -41,9 +36,8 @@ class _LoginPageState extends BasePageState<LoginPage> {
         child: BlocListener<LoginBloc, BaseState<LoginState>>(
           listener: (_, state) {
             if (state is AuthSuccessState) {
-              Navigator.pushReplacementNamed(context, Routes.kHomePage);
+              Navigator.pushReplacementNamed(context, Routes.kHomePage, arguments: state.authResponse);
             } else if (state is AuthFailState) {
-              print("Fail");
             }
           },
           child: Padding(
