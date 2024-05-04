@@ -39,7 +39,8 @@ class RemoteDataSourceImpl implements RemoteDatasource {
         response,
         payload: (data) => AuthResponse.fromJson(data),
       );
-    } on Exception {
+    } on Exception catch (e) {
+      print(e);
       rethrow;
     }
   }

@@ -59,9 +59,11 @@ class APIHelper {
         data: payload,
       );
 
-      final baseResponse = BaseResponse.fromJson(response.data);
-      final responseMap = jsonDecode(response.data.toString());
-      PrintResponse('$responseMap', type: "API RESPONSE");
+      final responseData = response.data; // Extract the data from the Response object
+
+      final responseMap = responseData is Map<String, dynamic>
+          ? responseData  // Use the response directly if it's already a Map<String, dynamic>
+          : jsonDecode(responseData.toString());
 
       return responseMap;
     } on DioException catch (e) {

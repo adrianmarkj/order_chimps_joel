@@ -39,6 +39,8 @@ class _LoginPageState extends BasePageState<LoginPage> {
           listener: (_, state) {
             if (state is AuthSuccessState){
               print("Success");
+            } else if (state is AuthFailState){
+              print("Fail");
             }
           },
           child: Padding(
