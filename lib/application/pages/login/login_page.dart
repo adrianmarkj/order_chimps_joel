@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../error/messages.dart';
 import '../../../injection.dart';
 import '../../core/routes.dart';
 import '../../core/utils/app_colors.dart';
@@ -130,10 +131,12 @@ class _LoginPageState extends BasePageState<LoginPage> {
 
   bool validate() {
     if (usernameController.text.isEmpty) {
+      showAppDialog(title: ErrorHandler.TITLE_OOPS, message: 'Username/Email cannot be empty');
       return false;
     }
 
     if (passwordController.text.isEmpty) {
+      showAppDialog(title: ErrorHandler.TITLE_OOPS, message: 'Password cannot be empty');
       return false;
     }
 
