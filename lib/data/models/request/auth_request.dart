@@ -4,11 +4,13 @@
 
 import 'dart:convert';
 
+import 'package:base_project/data/models/common/api_request.dart';
+
 AuthRequest authRequestFromJson(String str) => AuthRequest.fromJson(json.decode(str));
 
 String authRequestToJson(AuthRequest data) => json.encode(data.toJson());
 
-class AuthRequest {
+class AuthRequest extends Serializable {
   String? email;
   String? password;
   int? rememberMe;
@@ -28,6 +30,7 @@ class AuthRequest {
     systemUser: json["system_user"],
   );
 
+  @override
   Map<String, dynamic> toJson() => {
     "email": email,
     "password": password,

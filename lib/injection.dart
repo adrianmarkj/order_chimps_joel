@@ -30,9 +30,9 @@ Future<void> init() async {
 
   /// Data Layer ///
   /// remote
-  sl.registerFactory(() => RemoteRepoImpl(remoteDatasource: sl()));
+  sl.registerFactory(() => RemoteRepoImpl(remoteDatasource: sl(), networkInfo: sl()));
   sl.registerFactory<RemoteDatasource>(
-          () => RemoteDataSourceImpl(client: sl()));
+          () => RemoteDataSourceImpl(apiHelper: sl()));
   /// local
   sl.registerFactory(() => LocalRepoImpl(localDatasource: sl()));
   sl.registerFactory<LocalDatasource>(() => LocalDataSourceImpl(prefs: sl()));

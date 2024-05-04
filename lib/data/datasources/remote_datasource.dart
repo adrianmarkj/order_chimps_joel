@@ -1,38 +1,46 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
+import 'package:base_project/data/models/request/auth_request.dart';
+import 'package:base_project/data/models/response/auth_response.dart';
+
+import '../../application/core/encryption/packet_header.dart';
+import '../../application/core/network/api_helper.dart';
+import '../models/common/api_request.dart';
+import '../models/common/api_response.dart';
 
 abstract class RemoteDatasource {
-  // Future<List<StockModel>> getAllStocksFromApi();
+  Future<APIResponse<AuthResponse>> authenticate(
+      AuthRequest authRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDatasource {
-  final http.Client client;
+  final APIHelper apiHelper;
 
-  RemoteDataSourceImpl({required this.client});
+  Future<PacketHeader> _generateHeader() async {
+    PacketHeader header = PacketHeader();
+    header.tZ = DateTime.now().timeZoneName;
+    return header;
+  }
 
-  // @override
-  // Future<List<StockModel>> getAllStocksFromApi() async {
-  //   try {
-  //     const String url = "https://www.cse.lk/api/todaySharePrice";
-  //     final response = await client.post(Uri.parse(url), headers: {
-  //       'content-type': 'application/json'
-  //     }).timeout(const Duration(seconds: 10));
-  //
-  //     if (response.statusCode != 200) {
-  //       debugPrint('${response.statusCode}: ${response.reasonPhrase}');
-  //       return [];
-  //     } else {
-  //       final List<dynamic> responseBody = json.decode(response.body);
-  //       final List<StockModel> stocks =
-  //           responseBody.map((json) => StockModel.fromJson(json)).toList();
-  //       return stocks;
-  //     }
-  //   } catch (e) {
-  //     debugPrint(e.toString());
-  //     return [];
-  //   }
-  // }
+  RemoteDataSourceImpl({required this.apiHelper});
+
+  @override
+  Future<APIResponse<AuthResponse>> authenticate(
+      AuthRequest authRequest) async {
+    try {
+      final request = APIRequest<AuthRequest>();
+      request.header = await _generateHeader();
+      request.body = authRequest;
+      final response = await apiHelper.post(
+        "https://api.in2dfuture.com/api/v2/auth/login",
+        body: request.toJson(),
+      );
+      return APIResponse<AuthResponse>.fromJson(
+        response,
+        payload: (data) => AuthResponse.fromJson(data),
+      );
+    } on Exception {
+      rethrow;
+    }
+  }
 }
