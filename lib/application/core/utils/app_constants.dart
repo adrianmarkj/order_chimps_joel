@@ -1,6 +1,6 @@
 const kFontFamily = 'Poppins';
 
-const kAppName = 'First Capital';
+const kAppName = 'Order Chimps Joel';
 const String kPNGImagePath = 'images/pngs/';
 const String kSVGImagePath = 'images/svgs/';
 const String kAnimImagePath = 'animations/';
@@ -20,9 +20,5 @@ const double kOnBoardingMarginBetweenFields = 25;
 
 class AppConstants{
   static const routeSplash = "/splash";
-  static const routeWebPage = "/web/:title/:url";
-
-  static int huaweiAndroidVersion = 12;
-  static const String deviceTypeAndroid = "ANDROID";
-  static const String deviceTypeHuawei = "HUAWEI";
+  static const routeLogin = "/login";
 }

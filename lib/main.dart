@@ -19,13 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, screenType) {
-      return MaterialApp.router(
-        title: 'Flutter Demo',
+      return MaterialApp(
+        title: kAppName,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        routerConfig: routes,
+        initialRoute: Routes.kHomePage,
+        onGenerateRoute: Routes.generateRoute,
         supportedLocales: const [
           Locale(kLocaleEN, "US"),
           Locale(kLocaleSI, "LK"),

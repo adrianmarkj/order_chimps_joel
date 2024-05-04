@@ -1,31 +1,41 @@
-import 'package:base_project/application/core/utils/app_constants.dart';
+import 'package:base_project/application/pages/home/home_page.dart';
+import 'package:base_project/application/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:page_transition/page_transition.dart';
 
-import 'go_router_observer.dart';
+import '../pages/profile/profile_page.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey =
-GlobalKey<NavigatorState>(debugLabel: 'root');
+class Routes {
+  static const String kLoginPage = "kLoginPage";
+  static const String kHomePage = "kHomePage";
+  static const String kProfilePage = "kProfilePage";
 
-final routes = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  initialLocation: AppConstants.routeSplash,
-  observers: [GoRouterObserver()],
-  routes: [
-    // GoRoute(
-    //     path: AppConstants.routeSplash,
-    //     name: "Splash",
-    //     builder: (context, state) {
-    //       return const SplashPageWrapperProvider();
-    //     }),
-    // GoRoute(
-    //     path: AppConstants.routeWebPage,
-    //     name: "Web View",
-    //     builder: (context, state) {
-    //       return WebPageWrapperProvider(
-    //         title: state.pathParameters["title"]!,
-    //         url: state.pathParameters["url"]!,
-    //       );
-    //     }),
-  ],
-);
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case Routes.kLoginPage:
+        return PageTransition(
+          child: const LoginPage(),
+          type: PageTransitionType.fade,
+          settings: const RouteSettings(name: Routes.kLoginPage),
+        );
+      case Routes.kHomePage:
+        return PageTransition(
+          child: const HomePage(),
+          type: PageTransitionType.fade,
+          settings: const RouteSettings(name: Routes.kHomePage),
+        );
+      case Routes.kProfilePage:
+        return PageTransition(
+          child: const ProfilePage(),
+          type: PageTransitionType.fade,
+          settings: const RouteSettings(name: Routes.kHomePage),
+        );
+      default:
+        return PageTransition(
+          child: const LoginPage(),
+          type: PageTransitionType.fade,
+          settings: const RouteSettings(name: Routes.kLoginPage),
+        );
+    }
+  }
+}
