@@ -14,3 +14,5 @@ enum Logger {
 
   const Logger(this.code);
 }
+
+enum SecurityFailureType { ADB, ROOT, JAILBROKEN, EMU, SECURE, SOURCE, HOOK, DEBUGGER, OBFUSCATION, BINDING }
