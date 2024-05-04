@@ -1,6 +1,7 @@
 import 'package:base_project/application/common/app_button.dart';
 import 'package:base_project/application/common/custom_bottom_nav.dart';
 import 'package:base_project/application/core/utils/app_colors.dart';
+import 'package:base_project/application/core/utils/app_styling.dart';
 import 'package:base_project/application/pages/base/base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +42,7 @@ class _ProfilePageState extends BasePageState<ProfilePage> {
           child: Padding(
             padding: EdgeInsets.only(left: 5.w, right: 5.w),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 3.h,),
                  Center(
@@ -50,6 +51,11 @@ class _ProfilePageState extends BasePageState<ProfilePage> {
                     backgroundImage: const NetworkImage("https://i.pravatar.cc/300"),
                                    ),
                  ),
+                SizedBox(height: 3.h,),
+                Text("${widget.authResponse.user!.firstName} ${widget.authResponse.user!.lastName}", style: AppStyling.bold600TextSize16,),
+                Text("Email: ${widget.authResponse.user!.email}", style: AppStyling.normal400TextSize14,),
+                Text("Phone: ${widget.authResponse.user!.phoneNumber}", style: AppStyling.normal400TextSize14,),
+
                 const Spacer(),
                 AppButton(labelText: "Logout", color: AppColors.fail, onTap: (){
                   Navigator.pushReplacementNamed(context, Routes.kLoginPage);

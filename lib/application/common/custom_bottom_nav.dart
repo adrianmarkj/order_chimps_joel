@@ -29,7 +29,7 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
               onTap: () {
                 setState(() {
                   widget.currentIndex != 0
-                      ? Navigator.pushReplacementNamed(context, Routes.kHomePage)
+                      ? Navigator.pushReplacementNamed(context, Routes.kHomePage, arguments: widget.authResponse)
                       : null;
                 });
               },
